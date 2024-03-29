@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "build:tailwind": "tailwind build src/styles.scss -o src/tailwind.css"
   },
   "private": true,
   "dependencies": {
@@ -18,7 +19,11 @@
     "@angular/platform-browser": "^17.1.0",
     "@angular/platform-browser-dynamic": "^17.1.0",
     "@angular/router": "^17.1.0",
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.38",
+    "postcss-import": "^16.1.0",
     "rxjs": "~7.8.0",
+    "tailwindcss": "^3.4.3",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"
   },
