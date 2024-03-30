@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { MusicPlayerMainPageComponent } from './music-player-main-page/music-player-main-page.component';
-import { CommonModule } from '@angular/common';
+import { MusicPlayerMainPageComponent } from './components/music-player-main-page/music-player-main-page.component';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +8,6 @@ import { CommonModule } from '@angular/common';
   imports: [
     RouterOutlet,
     MusicPlayerMainPageComponent,
-    CommonModule
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
