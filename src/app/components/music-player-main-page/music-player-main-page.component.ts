@@ -6,8 +6,8 @@ import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-music-player-main-page',
-  standalone: true, // This property doesn't exist in Angular components. If you meant to make this component standalone, it should be done differently.
-  imports: [CommonModule], // Importing CommonModule is unnecessary here
+  standalone: true, 
+  imports: [CommonModule], 
   templateUrl: './music-player-main-page.component.html',
   styleUrl: './music-player-main-page.component.scss'
 })

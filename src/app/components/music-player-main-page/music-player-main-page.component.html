@@ -1,36 +1,36 @@
 <!-- component -->
-<div class="bg-gray-100 p-4 flex justify-center items-center h-screen">
-  <div class="bg-white p-8 rounded-lg shadow-md w-80">
+<div class="bg-gray-100 p-2 sm:p-4 flex justify-center items-center min-h-screen ">
+  <div class="bg-white p-4 sm:p-8 rounded-lg shadow-md max-w-xs sm:w-80 ">
     <!-- Artist Name -->
-    <p class="text-gray-600 text-sm text-left mb-2">{{ getcurrentSongArtist() }}</p>
+    <p class="text-gray-600 text-xs sm:text-sm text-left mb-2">{{ getcurrentSongArtist() }}</p>
     <!-- Album Cover -->
-    <div class="h-64 bg-cover bg-center mx-auto rounded-lg mb-4 shadow-lg shadow-teal-50"
+    <div class="h-48 sm:h-64 bg-cover bg-center mx-auto rounded-lg mb-4 shadow-lg shadow-teal-50"
       [style.backgroundImage]="'url(' + getSongCover() + ')'"></div>
+        
+      
     <!-- Song Title -->
-    <h2 class="text-xl font-semibold text-left">{{ getSongName() }}</h2>
-
+    <h2 class="text-lg sm:text-xl font-semibold text-left">{{ getSongName() }}</h2>
+    
     <!-- Progress Bar -->
-    <div class="mt-4 bg-gray-200 h-2 rounded-full">
-      <div class="bg-blue-500 h-2 rounded-full" [style.width.%]="progress"></div>
+    <div class="mt-4 bg-gray-200 h-1 sm:h-2 rounded-full">
+      <div class="bg-blue-500 h-1 sm:h-2 rounded-full" [style.width.%]="progress"></div>
     </div>
 
     <!-- Music Controls -->
-    <div class="mt-6 flex justify-center items-center">
-      <button class="p-3 rounded-full bg-gray-200 hover:bg-gray-300 focus:outline-none mr-4" (click)="stopTrack()">
-        <i class="fas fa-step-backward">
-          <!-- Stop icon SVG -->
-          <svg width="64px" height="64px" viewBox="0 0 24 24" class="w-4 h-4 text-gray-600" fill="none"
-            xmlns="http://www.w3.org/2000/svg">
-            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-            <g id="SVGRepo_iconCarrier">
-              <rect x="4.25" y="4.25" width="15.5" height="15.5" fill="#000000"></rect>
-            </g>
-          </svg>
-        </i>
+    <div class="mt-4 sm:mt-6 flex justify-center items-center">
+      
+      <!-- Stop Button  -->
+      <button class="p-2 sm:p-3 rounded-full bg-gray-200 hover:bg-gray-300 focus:outline-none mr-2 sm:mr-4" (click)="stopTrack()">
+        <!-- Stop icon SVG -->
+        <svg width="16px" height="16px" viewBox="0 0 24 24" class="w-4 h-4 text-gray-600" fill="none"
+          xmlns="http://www.w3.org/2000/svg">
+          <rect x="4.25" y="4.25" width="15.5" height="15.5" fill="#000000"></rect>
+        </svg>
       </button>
+      
+
+    <!-- Previous Button  -->
       <button class="p-3 rounded-full bg-gray-200 hover:bg-gray-300 focus:outline-none mr-4" (click)="previousTrack()">
-        <i class="fas fa-step-backward">
           <!-- Previous icon SVG -->
           <svg width="64px" height="64px" viewBox="0 0 24 24" class="w-4 h-4 text-gray-600" fill="none"
             xmlns="http://www.w3.org/2000/svg" transform="matrix(-1, 0, 0, 1, 0, 0)">
@@ -45,9 +45,10 @@
                 fill="#000000"></path>
             </g>
           </svg>
-        </i>
-      </button>
-      <button class="p-4 rounded-full bg-gray-200 hover:bg-gray-300 focus:outline-none mr-4" (click)="play()">
+       </button>
+
+       <!-- Play Button -->
+       <button class="p-4 rounded-full bg-gray-200 hover:bg-gray-300 focus:outline-none mr-4" (click)="play()">
         <ng-container *ngIf="!isPlaying">
           <!-- Play icon SVG -->
           <svg width="64px" height="64px" viewBox="0 0 24 24" class="w-6 h-6 text-gray-600" fill="none"
@@ -78,8 +79,8 @@
         </ng-container>
       </button>
 
+      <!-- Next Button-->
       <button class="p-3 rounded-full bg-gray-200 hover:bg-gray-300 focus:outline-none" (click)="nextTrack()">
-        <i class="fas fa-step-forward">
           <!-- Next icon SVG -->
           <svg width="64px" height="64px" viewBox="0 0 24 24" class="w-4 h-4 text-gray-600" fill="none"
             xmlns="http://www.w3.org/2000/svg">
@@ -94,8 +95,8 @@
                 fill="#000000"></path>
             </g>
           </svg>
-        </i>
       </button>
+
     </div>
   </div>
 </div>
