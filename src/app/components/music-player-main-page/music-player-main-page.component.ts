@@ -46,6 +46,9 @@ export class MusicPlayerMainPageComponent implements OnInit, OnDestroy {
     // Subscribe to the music list service to get the playlist
     this.subscribeToMusicList();
 
+    // Add event listener to handle next track when the current song finishes
+    this.addEndedEventListener();
+
     // Start updating the progress continuously
     this.startProgressInterval();
   }
@@ -54,6 +57,9 @@ export class MusicPlayerMainPageComponent implements OnInit, OnDestroy {
     this.subscription = this.musicListService.getMusicList().subscribe({
       next: (playlist: ISong[]) => {
         this.playlist = playlist;
+        if (this.playlist.length > 0) {
+            this.currentTrackId = this.playlist[0].id; 
+        }
       },
       error: (error: any) => {
         console.error('Error fetching music list:', error);
@@ -64,14 +70,13 @@ export class MusicPlayerMainPageComponent implements OnInit, OnDestroy {
   public play() : void {
     // Play the audio
     if (!this.isPlaying) {
-      this.audio.src = this.getSongUrl(this.currentTrackId);
       this.audio.currentTime = this.currentPlaybackTime;
-      this.audio.play();
-      this.isPlaying = true;
-      // Add event listener to handle next track when the current song finishes
-      this.audio.addEventListener('ended', () => {
-        this.nextTrack();
-      });
+      this.playNow()
+      // // Add event listener to handle next track when the current song finishes
+      // this.audio.addEventListener('ended', () => {
+      //   this.nextTrack();
+        
+      // });
     } else {
       this.pause();
     }
@@ -84,20 +89,27 @@ export class MusicPlayerMainPageComponent implements OnInit, OnDestroy {
     this.isPlaying = false;
   }
 
-  public nextTrack() : void {
-    // Play the next track
-    this.currentTrackId = this.getNextTrackId();
+  public playNow(): void {
+    //common function to playSong at moment
     this.audio.src = this.getSongUrl(this.currentTrackId);
     this.audio.play();
     this.isPlaying = true;
   }
 
+  public nextTrack() : void {
+    // Play the next track
+    this.currentTrackId = this.getNextTrackId();
+    this.playNow();
+    this.removeEndedEventListener();
+    this.addEndedEventListener();
+  }
+
   public previousTrack() : void {
     // Play the previous track
     this.currentTrackId = this.getPreviousTrackId();
-    this.audio.src = this.getSongUrl(this.currentTrackId);
-    this.audio.play();
-    this.isPlaying = true;
+    this.playNow();
+    this.removeEndedEventListener();
+    this.addEndedEventListener();
   }
 
   public stopTrack() : void  {
@@ -134,6 +146,9 @@ export class MusicPlayerMainPageComponent implements OnInit, OnDestroy {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
+
+    // Remove the ended event listener
+    this.removeEndedEventListener();
   }
 
   public getSongUrl(id: number): string {
@@ -162,6 +177,20 @@ export class MusicPlayerMainPageComponent implements OnInit, OnDestroy {
     if (this.currentTrackIndex === -1 || this.playlist.length === 0) {
       return 0;
     }
-    return this.playlist[(this.currentTrackIndex - 1 + this.playlist.length) % this.playlist.length].id;
+    return this.playlist.map((track, index) => index === (this.currentTrackIndex - 1 + this.playlist.length) % this.playlist.length ? track.id : null)[0] || 1;
   }
+
+
+  public addEndedEventListener(): void {
+    this.audio.addEventListener('ended', () => {
+      this.nextTrack();
+    });
+  }
+
+  public removeEndedEventListener(): void {
+    this.audio.removeEventListener('ended', () => {
+      this.nextTrack();
+    });
+  }
+
 }
